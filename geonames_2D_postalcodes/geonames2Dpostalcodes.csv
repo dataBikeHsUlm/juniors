@@ -1,4 +1,4 @@
-country,postcode,source,layer,lat,lon
+country,postalcode,source,layer,lat,lon
 AD,AD,geonames2D,postalcode,42.5357,1.5571
 AR,36,geonames2D,postalcode,-25.0178,-59.6472
 AR,41,geonames2D,postalcode,-26.883,-65.1956

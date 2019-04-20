@@ -70,7 +70,7 @@ with open("allCountries.txt", "r") as file:
 
 file= open(FILENAME, "w", newline='')
 writer = csv.writer(file)
-header = ['country','postcode','source','layer','lat','lon']
+header = ['country','postalcode','source','layer','lat','lon']
 writer.writerow(header)
 
 for country,postcodes in countries.items():
