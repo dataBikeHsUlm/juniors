@@ -70,13 +70,13 @@ with open("allCountries.txt", "r") as file:
 
 file= open(FILENAME, "w", newline='')
 writer = csv.writer(file)
-header = ['name','address','source','layer','lat','lon']
+header = ['country','postalcode','source','layer','lat','lon']
 writer.writerow(header)
 
 for country,postcodes in countries.items():
     #print(country,calculateShortCentroid(countries[country]))
     for shortcode,coordinates in calculateShortCentroid(countries[country]).items():
-        line=(country, shortcode, 'custom', 'postalcode', coordinates[0], coordinates[1])
+        line=(country, shortcode, 'geonames2d', 'postalcode', coordinates[0], coordinates[1])
         writer.writerow(line)
         #print(line)
 
