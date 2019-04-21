@@ -76,7 +76,7 @@ writer.writerow(header)
 for country,postcodes in countries.items():
     #print(country,calculateShortCentroid(countries[country]))
     for shortcode,coordinates in calculateShortCentroid(countries[country]).items():
-        line=(country, 'geonames2d', shortcode, 'postalcode', coordinates[0], coordinates[1])
+        line=(country+shortcode, 'geonames2d', shortcode, 'postalcode', coordinates[0], coordinates[1])
         writer.writerow(line)
         #print(line)
 
