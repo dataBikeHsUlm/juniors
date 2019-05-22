@@ -1,0 +1,95 @@
+AD	AD100	Canillo							42.5833	1.6667	6
+AD	AD200	Encamp							42.5333	1.6333	6
+AD	AD300	Ordino							42.6	1.55	6
+AD	AD400	La Massana							42.5667	1.4833	6
+AD	AD500	Andorra la Vella							42.5	1.5	6
+AD	AD600	Sant Julià de Lòria							42.4667	1.5	6
+AD	AD700	Escaldes-Engordany							42.5	1.5667	6
+AR	3636	POZO CERCADO (EL CHORRO (F), DPTO. RIVADAVIA (S))	Salta	A					-23.4933	-61.9267	3
+AR	4123	LAS SALADAS	Salta	A					-25.7833	-64.5	4
+AR	4126	CANDELARIA	Salta	A					-26.1	-65.1	4
+AR	4126	CEIBAL	Salta	A					-26.1	-65.0167	4
+AR	4126	BRETE	Salta	A					-26.0667	-65.3667	4
+AR	4126	EL BRETE	Salta	A					-26.0667	-65.3667	4
+AR	4126	EL JARDIN	Salta	A					-26.0833	-65.3833	4
+AR	4126	RUIZ DE LOS LLANOS	Salta	A					-26.1167	-65.2833	4
+AR	4126	LA ASUNCION	Salta	A					-26.0833	-65.263	3
+AR	4126	LOS MOGOTES	Salta	A					-26.0333	-65.2	4
+AR	4126	SAN PEDRO DE ARANDA	Salta	A					-26.0833	-65.263	3
+AR	4126	TALA	Salta	A					-26.1167	-65.2833	4
+AR	4126	SALAZAR	Salta	A					-26.0833	-65.263	3
+AR	4126	OVEJERO	Salta	A					-26.0833	-65.263	3
+AR	4126	EL CUIBAL	Salta	A					-26.0833	-65.263	3
+AR	4126	LA MARAVILLA	Salta	A					-26.0833	-65.263	3
+AR	4126	EL SUNCHAL	Salta	A					-26.0833	-65.263	3
+AR	4126	ALEM	Salta	A					-26.0833	-65.263	3
+AR	4126	BARADERO	Salta	A					-26.0833	-65.263	3
+AR	4126	MIRAFLORES (TALA, DPTO. CANDELARIA)	Salta	A					-26.0833	-65.263	3
+AR	4141	MACHO RASTROJO	Salta	A					-26.4367	-65.97	3
+CA	S9A	North Battleford	Saskatchewan	SK					52.7834	-108.2847	4
+CA	S9H	Swift Current	Saskatchewan	SK					50.2834	-107.8013	4
+CA	S9V	Lloydminster	Saskatchewan	SK					53.2835	-110.0016	4
+CA	S9X	Meadow Lake	Saskatchewan	SK					54.1335	-108.4347	4
+CA	Y0A	Southeastern Yukon (Watson Lake)	Yukon	YT					61.5793	-131.1481	6
+CA	Y0B	Central Yukon (Dawson City)	Yukon	YT					64.645	-137.536	6
+CA	Y1A	Whitehorse	Yukon	YT					60.7161	-135.0537	4
+CH	5000	Aarau	Kanton Aargau	AG	Bezirk Aarau	1901	Aarau	4001	47.3925	8.0442	4
+CH	5001	Aarau 1	Kanton Aargau	AG	Bezirk Aarau	1901	Aarau	4001	47.3888	8.0483
+CH	5004	Aarau	Kanton Aargau	AG	Bezirk Aarau	1901	Aarau	4001	47.3925	8.0442	4
+CH	5017	Barmelweid	Kanton Aargau	AG	Bezirk Aarau	1901	Erlinsbach (AG)	4005	47.4159	7.9764	4
+CH	5022	Rombach	Kanton Aargau	AG	Bezirk Aarau	1901	Küttigen	4008	47.4047	8.0459	4
+CH	5023	Biberstein	Kanton Aargau	AG	Bezirk Aarau	1901	Biberstein	4002	47.4164	8.0851	4
+CH	5024	Küttigen	Kanton Aargau	AG	Bezirk Aarau	1901	Küttigen	4008	47.4157	8.0477	4
+CH	5025	Asp	Kanton Aargau	AG	Bezirk Aarau	1901	Densbüren	4004	47.445	8.0503	4
+CH	5026	Densbüren	Kanton Aargau	AG	Bezirk Aarau	1901	Densbüren	4004	47.4526	8.0533	4
+CH	5032	Aarau Rohr	Kanton Aargau	AG	Bezirk Aarau	1901	Aarau	4001	47.4017	8.0796	4
+CH	5033	Buchs AG	Kanton Aargau	AG	Bezirk Aarau	1901	Buchs (AG)	4003	47.3936	8.0823	4
+DZ	16021	Marche Nelson	Alger	16					36.7206	3.1165	1
+DZ	16021	Alger El Kettani	Alger	16					36.7206	3.1165	1
+DZ	16022	Alger Haute Casbah	Alger	16					36.7206	3.1165	1
+DZ	16023	Lot Florence	Alger	16					36.7206	3.1165	1
+DZ	16023	Alger Malika Gaid	Alger	16					36.7206	3.1165	1
+DZ	16023	Lot Cognot	Alger	16					36.7206	3.1165	1
+DZ	16023	Cite Des Sources (Lot)	Alger	16					36.7206	3.1165	1
+DZ	16023	Quartier Val Fleuri	Alger	16					36.7206	3.1165	1
+DZ	16023	Fontaine Fraiche	Alger	16					36.7206	3.1165	1
+DZ	16024	Bab Ezzouar	Alger	16					36.7261	3.1829	4
+DZ	16024	Tribu Sidi M'Hamed	Alger	16					36.7261	3.1829	3
+DZ	16024	Tribu Mahmoud	Alger	16					36.7261	3.1829	3
+DZ	16024	Domaine Douzi Mohamed	Alger	16					36.7261	3.1829	3
+DZ	16024	Domaine Hammoud Mimouni	Alger	16					36.7261	3.1829	3
+DZ	16024	Lot Mahmoud	Alger	16					36.7261	3.1829	3
+DZ	16024	Domaine Si Abdellah	Alger	16					36.7261	3.1829	3
+DZ	16024	Lot Sidi M'Hamed	Alger	16					36.7261	3.1829	3
+DZ	16024	Sorecal (Cite)	Alger	16					36.7261	3.1829	3
+DZ	16024	Cite Universitaire Ii	Alger	16					36.7261	3.1829	3
+DZ	16024	Cite Sorecal 8 Mai 1945	Alger	16					36.7261	3.1829	3
+DZ	16024	Cem Sorecal	Alger	16					36.7261	3.1829	3
+DZ	16025	Cem Numero 1	Alger	16					36.7206	3.1165	1
+DZ	16025	Sonatiba (Cite)	Alger	16					36.7206	3.1165	1
+DZ	16025	Douieb (Ferme)	Alger	16					36.7206	3.1165	1
+DZ	16025	Domaine Hamoud Mimouna	Alger	16					36.7206	3.1165	1
+DZ	16025	Cite Sonatiba	Alger	16					36.7206	3.1165	1
+DZ	16025	Cite Rabia Tahar	Alger	16					36.7206	3.1165	1
+DZ	16025	Cite 880 Logements	Alger	16					36.7206	3.1165	1
+DZ	16025	Cimetiere El Alia	Alger	16					36.7206	3.1165	1
+DZ	16025	Bab Ezzouar El Alia	Alger	16					36.7206	3.1165	1
+DE	57612	Giesenhausen	Rheinland-Pfalz	RP		00	Westerwaldkreis	07143	50.7	7.7167	4
+DE	57612	Volkerzen	Rheinland-Pfalz	RP		00	Landkreis Altenkirchen	07132	50.7167	7.6833	4
+DE	57612	Helmenzen	Rheinland-Pfalz	RP		00	Landkreis Altenkirchen	07132	50.6939	7.6199	4
+DE	57612	Birnbach	Rheinland-Pfalz	RP		00	Landkreis Altenkirchen	07132	50.7	7.5833	4
+DE	57614	Woldert	Rheinland-Pfalz	RP		00	Landkreis Neuwied	07138	50.6	7.65	4
+DE	57614	Wahlrod	Rheinland-Pfalz	RP		00	Westerwaldkreis	07143	50.65	7.7167	4
+DE	57614	Berod bei Höchstenbach	Rheinland-Pfalz	RP		00	Landkreis Altenkirchen	07132	50.6476	7.6928	4
+DE	57614	Stürzelbach	Rheinland-Pfalz	RP		00	Landkreis Altenkirchen	07132	50.65	7.6167	4
+DE	57614	Mudenbach	Rheinland-Pfalz	RP		00	Westerwaldkreis	07143	50.6667	7.7333	4
+DE	57614	Ratzert	Rheinland-Pfalz	RP		00	Landkreis Neuwied	07138	50.65	7.6167	4
+DE	57614	Borod	Rheinland-Pfalz	RP		00	Westerwaldkreis	07143	50.6675	7.7097	4
+DE	57614	Steimel	Rheinland-Pfalz	RP		00	Landkreis Neuwied	07138	50.6167	7.6333	4
+DE	57614	Oberwambach	Rheinland-Pfalz	RP		00	Landkreis Altenkirchen	07132	50.6667	7.65	4
+DE	57614	Niederwambach	Rheinland-Pfalz	RP		00	Landkreis Neuwied	07138	50.6333	7.6	4
+DE	57614	Fluterschen	Rheinland-Pfalz	RP		00	Landkreis Altenkirchen	07132	50.6665	7.6271	4
+DE	57627	Heuzert	Rheinland-Pfalz	RP		00	Westerwaldkreis	07143	50.6991	7.7598	4
+DE	57627	Astert	Rheinland-Pfalz	RP		00	Westerwaldkreis	07143	50.695	7.7783	4
+DE	57627	Gehlert	Rheinland-Pfalz	RP		00	Westerwaldkreis	07143	50.6417	7.8294	4
+DE	57627	Hachenburg	Rheinland-Pfalz	RP		00	Westerwaldkreis	07143	50.66	7.8228	4

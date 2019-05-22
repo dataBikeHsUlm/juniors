@@ -35,7 +35,7 @@ def calculateShortCentroid(country):
 
 #with open("BE.txt", "r") as file:
 #with open("allextract.txt", "r") as file:
-with open("allCountries.txt", "r") as file:
+with open("allCountries.txt", "r", encoding='utf-8') as file:
     reader = csv.reader(file, delimiter="\t")
     country = ""
     for line in reader:
