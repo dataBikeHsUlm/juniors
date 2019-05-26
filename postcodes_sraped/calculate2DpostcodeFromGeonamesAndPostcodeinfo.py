@@ -14,11 +14,13 @@ def calculateShortCentroid(country):
     for allcodes in country:
         for fullcode,coordinates in allcodes.items():
             firstdigit = re.search("\d", fullcode)
+            nohyphen = fullcode.replace('-', '')
             short_code = ""
             if firstdigit:
-                short_code = fullcode[:(firstdigit.start()+2)]
+                #short_code = nohyphen[:(firstdigit.start()+2)]
+                short_code = nohyphen[firstdigit.start() : (firstdigit.start()+ 2)]
             else:
-                short_code = fullcode[:2]
+                short_code = nohyphen[:2]
             lat = coordinates[0][0]
             lon = coordinates[0][1]
             if not short_code in shortall:
@@ -41,23 +43,24 @@ def calculateShortCentroid(country):
 
 #with open("BE.txt", "r") as file:
 #with open("allextract.txt", "r") as file:
-with open("geonames_and_postcodeinfo/merged_geonames_and_postcodeinfo.csv", "r") as file:
+with open("../data/geonames-and-postcodeinfo.csv", "r", encoding='utf-8') as file:
     reader = csv.reader(file, delimiter="\t")
     country = ""
-    fieldnames = ['country','postalcode','region','lat','long']
+    fieldnames = ['country','postalcode','region','lat','long', 'source']
     for line in reader:
         country = line[0]
         postal_code = line[1]
         lat = float(line[3])
         lon = float(line[4])
+        source = line[5]
 
         if not postal_code in codes:
             codes[postal_code] = []
 
         if not postal_code in codes.keys():
-            codes[postal_code] = [lat,lon]
+            codes[postal_code] = [lat,lon,source]
         else:
-            codes[postal_code].append((lat,lon))
+            codes[postal_code].append((lat,lon,source))
 
         if not country in countries:
             countries[country] = []
@@ -73,18 +76,14 @@ with open("geonames_and_postcodeinfo/merged_geonames_and_postcodeinfo.csv", "r")
 #https://github.com/pelias/csv-importer
 #https://github.com/pelias/document-service
 
-#name postcode source layer	lat	 lon
-
 file= open(FILENAME, "w", newline='', encoding='utf-8')
 writer = csv.writer(file, delimiter='\t')
-header = ['name','source','postalcode','layer','lat','lon']
+header = ['country', '2dpostalcode','c&2dp','lat','lon','source']
 writer.writerow(header)
 
 for country,postcodes in countries.items():
-    #print(country,calculateShortCentroid(countries[country]))
     for shortcode,coordinates in calculateShortCentroid(countries[country]).items():
-       # print(country)
-        line=(country+shortcode, 'geonames2d', shortcode, 'postalcode', coordinates[0], coordinates[1])
+        line=(country, shortcode, country+shortcode, coordinates[0], coordinates[1])
         writer.writerow(line)
         #print(line)
 
