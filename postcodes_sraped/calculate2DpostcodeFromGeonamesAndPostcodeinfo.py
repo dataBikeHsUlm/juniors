@@ -1,24 +1,27 @@
 import csv
 import re
 
-FILENAME = "geonames_and_postcodeinfo/geonamesandpostcodeinfo2Dpostalcodes.csv"
+FILENAME = "../data/geonamesandpostcodeinfo2Dpostalcodes.csv"
 
 # needed for loading whole csv file
 countries = {}
 codes = {}
 
-def calculateShortCentroid(country):
+def calculateShortCentroid(country, codesincountry):
     shortall = {}
     returndictshortall = {}
 
-    for allcodes in country:
+    for allcodes in codesincountry:
         for fullcode,coordinates in allcodes.items():
-            firstdigit = re.search("\d", fullcode)
             nohyphen = fullcode.replace('-', '')
+            firstdigit = re.search("\d", nohyphen)
             short_code = ""
             if firstdigit:
-                #short_code = nohyphen[:(firstdigit.start()+2)]
-                short_code = nohyphen[firstdigit.start() : (firstdigit.start()+ 2)]
+                print(country)
+                if country == "MT":
+                    short_code = nohyphen[firstdigit.start(): (firstdigit.start() + 3)]
+                else:
+                    short_code = nohyphen[firstdigit.start() : (firstdigit.start()+ 2)]
             else:
                 short_code = nohyphen[:2]
             lat = coordinates[0][0]
@@ -47,6 +50,7 @@ with open("../data/geonames-and-postcodeinfo.csv", "r", encoding='utf-8') as fil
     reader = csv.reader(file, delimiter="\t")
     country = ""
     fieldnames = ['country','postalcode','region','lat','long', 'source']
+    next(reader, None)  # skip the headers
     for line in reader:
         country = line[0]
         postal_code = line[1]
@@ -78,11 +82,11 @@ with open("../data/geonames-and-postcodeinfo.csv", "r", encoding='utf-8') as fil
 
 file= open(FILENAME, "w", newline='', encoding='utf-8')
 writer = csv.writer(file, delimiter='\t')
-header = ['country', '2dpostalcode','c&2dp','lat','lon','source']
+header = ['country', '2dpostalcode','c&2dp','lat','lon']
 writer.writerow(header)
 
 for country,postcodes in countries.items():
-    for shortcode,coordinates in calculateShortCentroid(countries[country]).items():
+    for shortcode,coordinates in calculateShortCentroid(country, countries[country]).items():
         line=(country, shortcode, country+shortcode, coordinates[0], coordinates[1])
         writer.writerow(line)
         #print(line)
