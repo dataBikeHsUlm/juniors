@@ -17,18 +17,24 @@ def calculateShortCentroid(country, codesincountry):
             firstdigit = re.search("\d", nohyphen)
             short_code = ""
             if firstdigit:
-                print(country)
                 if country == "MT":
-                    short_code = nohyphen[firstdigit.start(): (firstdigit.start() + 3)]
+                    short_code = nohyphen[firstdigit.start() : (firstdigit.start() + 3)]
                 else:
                     short_code = nohyphen[firstdigit.start() : (firstdigit.start()+ 2)]
-            else:
-                short_code = nohyphen[:2]
             lat = coordinates[0][0]
             lon = coordinates[0][1]
             if not short_code in shortall:
                 shortall[short_code] = []
             shortall[short_code].append((lat, lon))
+
+# in case postalcodes without any digits should be relevant
+#            else:
+#                short_code = nohyphen[:2]
+#            lat = coordinates[0][0]
+#            lon = coordinates[0][1]
+#            if not short_code in shortall:
+#                shortall[short_code] = []
+#            shortall[short_code].append((lat, lon))
 
     for short_code in shortall:
         lat_sum = 0
