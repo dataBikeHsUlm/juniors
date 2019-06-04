@@ -87,7 +87,7 @@ with open("../data/geonames-and-postcodeinfo.csv", "r", encoding='utf-8') as fil
 #https://github.com/pelias/document-service
 
 file= open(FILENAME, "w", newline='', encoding='utf-8')
-writer = csv.writer(file, delimiter='\t')
+writer = csv.writer(file)
 #header = ['country', '2dpostalcode','c&2dp','lat','lon']
 header = ['name','source','layer','lat','lon','country','postalcode']
 writer.writerow(header)
