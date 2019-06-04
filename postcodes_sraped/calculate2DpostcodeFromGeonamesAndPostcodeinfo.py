@@ -95,7 +95,7 @@ writer.writerow(header)
 for country,postcodes in countries.items():
     for shortcode,coordinates in calculateShortCentroid(country, countries[country]).items():
 #        line=(country, shortcode, country+shortcode, coordinates[0], coordinates[1])
-        line = (country+shortcode, "geonamesandpostcodeinfo", "address", coordinates[0], coordinates[1], country, shortcode )
+        line = (country+shortcode,"geonamesandpostcodeinfo","address",coordinates[0],coordinates[1],country,shortcode)
         writer.writerow(line)
         #print(line)
 
