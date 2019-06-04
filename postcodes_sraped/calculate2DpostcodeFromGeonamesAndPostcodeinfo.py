@@ -1,7 +1,7 @@
 import csv
 import re
 
-FILENAME = "../data/geonamesandpostcodeinfo2Dpostalcodes.csv"
+FILENAME = "../peliasimport/geonamesandpostcodeinfo2Dpostalcodes.csv"
 
 # needed for loading whole csv file
 countries = {}
@@ -88,12 +88,14 @@ with open("../data/geonames-and-postcodeinfo.csv", "r", encoding='utf-8') as fil
 
 file= open(FILENAME, "w", newline='', encoding='utf-8')
 writer = csv.writer(file, delimiter='\t')
-header = ['country', '2dpostalcode','c&2dp','lat','lon']
+#header = ['country', '2dpostalcode','c&2dp','lat','lon']
+header = ['name','source','layer','lat','lon','country','postalcode']
 writer.writerow(header)
 
 for country,postcodes in countries.items():
     for shortcode,coordinates in calculateShortCentroid(country, countries[country]).items():
-        line=(country, shortcode, country+shortcode, coordinates[0], coordinates[1])
+#        line=(country, shortcode, country+shortcode, coordinates[0], coordinates[1])
+        line = (country+shortcode, "geonamesandpostcodeinfo", "address", coordinates[0], coordinates[1], country, shortcode )
         writer.writerow(line)
         #print(line)
 
