@@ -1,0 +1,26 @@
+% vim:ft=tex
+
+\section{Introduction}
+The purpose if this paper is to document the progress of the "junior team" during the first half of the data science project in form of a technical report. Moreover, this report should allow readers to gain an understanding of the topics covered in the data science project as well as be able to reproduce and extend the developed and utilized solutions.
+\\\\
+The covered tasks during the first half of the project can be categorized into three main areas:
+\begin{enumerate}
+\item Infrastructure
+\begin{itemize}
+\item Set up a virtual machine (Ubuntu Linux)
+\item Install and configure Pelias and Elasticsearch
+\item Install and evaluate different routing engines
+\end{itemize}
+\item Data acquisition and preparation
+\begin{itemize}
+\item Gather postcode data of European countries from different sources
+\item Merge postcode data into a single data source of Pelias and Elasticsearch
+\end{itemize}
+\item Geocodoing and Routing
+\begin{itemize}
+\item Test geocoding with Pelias based on precalculated two-digit postcode centroids
+\item Test routing between two-digit postcode centroids wit a routing engine
+\end{itemize}
+\end{enumerate}
+\\\\
+The main requirements were to evaluate Pelias as an open source geocoding service and as an alternative to Nominatim as well as to realize routing from one two-digit postcode to another. In order to achieve this it was necessary to build a database of postcodes and create a map of Europe based on data provided by Openstreetmaps, Whosonfirst, Geonames and Postcodeinfo. Furthermore, routing engines as an alternative to Graphhopper had to be evaluated. Last but not least an adequate documentation on how these requirements can be fulfilled and the outcome reproduced had to be written.
