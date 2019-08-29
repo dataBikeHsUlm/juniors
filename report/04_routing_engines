@@ -8,11 +8,11 @@ Part of this project was to research and evaluate possible routing engines for P
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{img/routing_comparison_01}
-\captionof{figure}{Comparison of Routing Engines 1}\label{fig:routing_comparison_01}
+\captionof{figure}{Comparison of all open source Routing Engines}\label{fig:routing_comparison_01}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{img/routing_comparison_02}
-\captionof{figure}{Comparison of Routing Engines 1}\label{fig:routing_comparison_02}
+\captionof{figure}{Comparison of fastest open source Routing Engines}\label{fig:routing_comparison_02}
 \end{figure}
 
