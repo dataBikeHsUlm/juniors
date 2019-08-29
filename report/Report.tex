@@ -1,0 +1,127 @@
+\documentclass[12pt]{report}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[english]{babel}
+\usepackage{caption}
+\usepackage{capt-of}
+\usepackage{color, colortbl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[numbers]{natbib}
+\usepackage[nohyperlinks, printonlyused, withpage, smaller]{acronym}
+\usepackage[ngerman]{datetime}
+\usepackage{chngcntr}
+\usepackage{pdfpages}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage[skins]{tcolorbox}
+\usepackage{rotating}
+\usepackage{framed}
+\counterwithin{figure}{section}
+\usepackage{lipsum}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{listing}
+\usepackage{hyperref}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage{upquote}
+
+\def\frontmatter{%
+    \pagenumbering{roman}
+    \setcounter{page}{1}
+    \renewcommand{\thesection}{\Roman{section}}
+}%
+
+\def\mainmatter{%
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+    \setcounter{section}{0}
+    \renewcommand{\thesection}{\arabic{section}}
+}%
+
+\def\backmatter{%
+    \setcounter{section}{0}
+    \renewcommand{\thesection}{\Alph{section}}
+}%
+\renewcommand{\listfigurename}{\begingroup
+    \tocchapter{}
+    \tocfile{\listoffigurename}{B Illustration Directory}
+\endgroup}
+
+\begin{document}
+\frontmatter
+
+\begin{titlepage}
+    \newcommand{\HRule}{\rule{\linewidth}{1.5mm}}
+    \center{}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{img/hslogo}\label{pic:Logo}
+    \end{figure}
+
+    \begin{center}
+    \end{center}
+
+    {\huge Masterproject}\\[0.4cm]
+    \begin{center}
+    \end{center}
+    {\Large Geocoding and Routing with Pelias and Valhalla }\\
+    \vfill
+    \begin{center}
+        {Contributors:}\ \\
+        \vspace{0.25\baselineskip}
+        {\Large Martin Schmid, Sergej Dechant}
+    \end{center}
+    \vfill
+    \begin{center}
+        {\large Expert: Prof.\ Dr.\ von Schwerin }\\
+    \end{center}
+    \begin{center}
+        {\large Expert: Prof.\ Dr.\ Herbort}
+    \end{center}
+    \begin{center}
+        {\large Expert: Prof.\ Dr.\ Goldstein}
+    \end{center}
+    \vfill
+    {\Large \today}
+
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\mainmatter{}
+\newpage
+\chapter{Introduction}
+% TODO: reorganize, rewrite
+\input{./01_introduction.tex}
+\chapter{Routing Engines}
+\input{./04_routing_engines}
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{./bibtex/junior_report}
+\renewcommand{\listfigurename}{B Illustration Directory}
+\listoffigures
+\section*{C List of Abbreviations}
+\addcontentsline{toc}{section}{C List of Abbreviations}
+\begin{acronym}
+    \acro{yarn}[YARN]{Yet Another Resource Negotiator}
+    \acro{sql} [SQL]{Structured Query Language}
+    \acro{nsql} [NoSQL]{Not only Sql}
+    \acro{pl}[PL/pgSQL] {Procedural Language/PostgreSQL}
+    \acro{osm}[OSM]{OpenStreetMap}
+    \acro{hdp}[HDP]{Hortonworks Data Platform}
+    \acro{hdfs} [HDFS]{Hadoop Distributed File System}
+    \acro{osm}[OSM]{OpenStreetMap}
+    \acro{dfsio}[DFSIO]{Data File System I/O}
+    \acro{mlp}[MLPRegressor]{Multi-layer Perceptron Regressor}
+    \acro{rmse}[RMSE]{Root Mean Square Error}
+    \acro{mlib}[MLlib]{Machine Learning Library}
+    \acro{als}[ALS]{alternating least squares}
+    \acro{svd}[SVD]{singular value decomposition}
+    \acro{pca}[PCA]{principal component analysis}
+    \acro{sse}[SSE]{Sum of Squared Errors}
+\end{acronym}
+\end{document}
