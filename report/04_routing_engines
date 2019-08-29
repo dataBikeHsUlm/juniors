@@ -4,7 +4,7 @@
 The Pelias API and Pelias services are only suited for the purpose of geocoding and reverse geocoding. Geocoding retrieves coordinates (latitude and longitude) for a given address or postode and reverse geocoding finds the nearest known address or postcode for a provided address.
 In order to find the shortest or fastest route between two given addresses Pelias has to be used in conjunction with a routing engine. The two addresses are fed into Pelias and Pelias provides coordinates for them which are then used as input values for finding a route from one coordinate to the other using a routing engine and the metrics inside the routing engine.
 \subsection{Comparison of Routing Engines}
-Part of this project was to research and evaluate possible routing engines for Pelias. Internet research conducted by the junior them revealed a comparison of open source routing engines which was done by one of the members of Openstreetmaps. The following two figure illustrate the required computing time (in ms) to calculate a route depending on the length of the route (in km)\cite{Ramm2017}:
+Part of this project was to research and evaluate possible routing engines for Pelias. Internet research conducted by the junior them revealed a comparison of open source routing engines which was done by one of the members of Openstreetmaps. The following two figures illustrate the required computing time (in ms) to calculate a route depending on the length of the route (in km)\cite{Ramm2017}:
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{img/routing_comparison_01}
