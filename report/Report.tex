@@ -26,7 +26,10 @@
 \usepackage{hyperref}
 \usepackage{lscape}
 \usepackage{longtable}
+\usepackage{multirow}
 \usepackage{upquote}
+\usepackage{longtable}
+\usepackage{booktabs}
 
 \def\frontmatter{%
     \pagenumbering{roman}
@@ -98,7 +101,13 @@
 \input{./01_introduction.tex}
 \input{./02_requirements.tex}
 \chapter{Routing Engines}
-\input{./04_routing_engines}
+\input{./04_routing_engines.tex}
+\chapter{Data Acquisition and Preparation}
+\input{./05_twodigitpostcodes.tex}
+\chapter{Installation}
+\input{./06_installation_and_configuration.tex}
+
+
 
 \newpage
 \bibliographystyle{plain}
@@ -108,21 +117,8 @@
 \section*{C List of Abbreviations}
 \addcontentsline{toc}{section}{C List of Abbreviations}
 \begin{acronym}
-    \acro{yarn}[YARN]{Yet Another Resource Negotiator}
-    \acro{sql} [SQL]{Structured Query Language}
-    \acro{nsql} [NoSQL]{Not only Sql}
-    \acro{pl}[PL/pgSQL] {Procedural Language/PostgreSQL}
     \acro{osm}[OSM]{OpenStreetMap}
-    \acro{hdp}[HDP]{Hortonworks Data Platform}
-    \acro{hdfs} [HDFS]{Hadoop Distributed File System}
-    \acro{osm}[OSM]{OpenStreetMap}
-    \acro{dfsio}[DFSIO]{Data File System I/O}
-    \acro{mlp}[MLPRegressor]{Multi-layer Perceptron Regressor}
-    \acro{rmse}[RMSE]{Root Mean Square Error}
-    \acro{mlib}[MLlib]{Machine Learning Library}
-    \acro{als}[ALS]{alternating least squares}
-    \acro{svd}[SVD]{singular value decomposition}
-    \acro{pca}[PCA]{principal component analysis}
-    \acro{sse}[SSE]{Sum of Squared Errors}
+    \acro{gh}[GH]{Graphhopper}
+    \acro{osrm}[OSRM]{Open Source Routing Machine}
 \end{acronym}
 \end{document}

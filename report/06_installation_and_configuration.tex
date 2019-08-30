@@ -1,0 +1,53 @@
+\section{Installation and Configuration}
+Pelias can be installed as Docker Image, manually from scratch or with Kubernetes. For testing purposes installing Pelias as a Docker Images is strongly recommended by the developers\cite{Simioni2018b}. Pelias can also be installed manually from scratch, but due to the large amount of dependencies this is not recommended by the developers. To use Pelias in production, the development team suggests an installation with Kubernetes, which is by far the most well tested way to install Pelias according to the development team.
+
+\subsection{Installation with Docker}
+On the virtual machine Pelias was installed and maintained with Docker and Docker-Compose. Install Docker and Docker-Compose:
+\begin{lstlisting}[language=bash,breaklines=true]
+sudo apt-get update
+sudo apt-get install \
+apt-transport-https \
+   ca-certificates \
+	curl \
+	gnupg-agent \
+	software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \ "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+	$(lsb_release -cs) \ stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo systemctl enable docker
+sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+\end{lstlisting}
+Afterwars Pelias can be installed by cloning Pelias' git repository. In this repository Pelias' developers provide example projects (e.g. Beligum, Portland Metro, etc.). Pelias' "planet" project was used as a starting point for a Europe build. For this Pelias was forked on Github and cloned onto the VM. The project can be found in the following folder:
+\begin{lstlisting}[language=bash,breaklines=true]
+/home/dataproject/git/pelias-docker/projects/Europe
+\end{lstlisting}
+In order to build and run Pelias with data for Europe four configuration files in this folder are needed:
+\begin{enumerate}
+\item .env
+\item Elasticsearch.yml
+\item pelias.json
+\item docker-compose.yml
+\end{enumerate}
+TODO VERWEIS AUF ANHANG MIT DEN KONFIGURATIONSFILES
+In .env DATA{\_}DIR and DOCKER{\_}USER are important entries/variables. DATA{\_}DIR specifies where Pelias will store downloaded data and build its other services. DOCKER{\_}USER specifies the user id. This user id will be used for accessing files on the host filesystem in DATA{\_}DIR since Pelias' processes run as non-root users in containers.
+In Elasticsearch.yml both thread pool sizes had to be increased since the default values were too small. Pelias importers delivered too much data concurrently for Elasticsearch which resulted in corrupted data.
+In pelias.json all Pelias services are configured. These services run as docker containers. Therefore, it is not necessary to provide complete full paths on the host filesystem or IP/DNS addresses. Paths are mapped to the paths provided in the docker compose file  and .env file. Docker has its own networking and DNS. Services in a docker network can be addressed by using docker compose service names as well as container names and ids. Container ports can be mapped to host ports.
+The variables DOCKER{\_}USER and DATA{\_}DIR in docker-compose.yml are mapped to the corresponding entries in .env. Inside containers pelias.json is made available in /code/pelias.json. Ports are mapped in the following way:
+hostport:containerport.
+The "image" directive tells docker from where it has to pull the container image. In this case all images are pulled from the Pelias repository on Docker-Hub. After the colon a tag is specified (e.g. master or a version/hash). If no tag is provided, the latest version will be pulled.
+With this configuration it is possible to build Europe completely with the following commands and order (cd to Europe project folder first):
+\begin{lstlisting}[language=bash,breaklines=true]
+pelias compose pull
+pelias elastic start
+pelias elastic wait
+pelias elastic create
+pelias download all
+pelias prepare all
+pelias import all
+pelias compose up
+\end{lstlisting}

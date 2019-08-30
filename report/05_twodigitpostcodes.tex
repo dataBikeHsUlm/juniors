@@ -1,0 +1,36 @@
+\section{Two-Digit Postcodes}
+CSV Data provided by geonames.org \cite{Unxos2019} and postcode.info, which was scrapped and provided by a fellow student \cite{Mehra2019},  was used as basis for calculating two-digit postcodes for European countries. At the first iteration two-digit postcodes were calculated from Geonames data. In order to achieve this Python scripts were written \cite{Dechant2019b}. These scripts process a Geonames CSV file and provide a new CSV file with two-digits postcodes including their centroids. Here is an example of six calculated two-digit postcodes in Germany:
+
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+DE80 & geonames2d & 80 & postalcode & 48.1615 & 11.5509 \\ \hline
+DE81 & geonames2d & 81 & postalcode & 48.1254 & 11.5726 \\ \hline
+DE82 & geonames2d & 82 & postalcode & 47.911  & 11.2502 \\ \hline
+DE83 & geonames2d & 83 & postalcode & 47.8713 & 12.2803 \\ \hline
+DE84 & geonames2d & 84 & postalcode & 48.4086 & 12.4327 \\ \hline
+DE85 & geonames2d & 85 & postalcode & 48.4174 & 11.6308 \\ \hline
+\end{tabular}
+\caption{Geonames Two-Digit Postcodes}
+\label{tab:geonames2d}
+\end{table}
+
+At the second iteration Geonames and Postcode data were combined after having done some preparation steps on the Postcode data. Again Python scripts were written \cite{Dechant2019}. Here is an excerpt:
+
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+DE80 & geonamesandpostcodeinfo & 80 & postalcode & 48.1512 & 11.5938 \\ \hline
+DE81 & geonamesandpostcodeinfo & 81 & postalcode & 48.1331 & 11.6046 \\ \hline
+DE82 & geonamesandpostcodeinfo & 82 & postalcode & 47.9419 & 11.2759 \\ \hline
+DE83 & geonamesandpostcodeinfo & 83 & postalcode & 47.888 & 12.2627 \\ \hline
+DE84 & geonamesandpostcodeinfo & 84 & postalcode & 48.4367 & 12.4206 \\ \hline
+DE85 & geonamesandpostcodeinfo & 85 & postalcode & 48.4171 & 11.6294 \\ \hline
+\end{tabular}
+\caption{Geonames and Postcode.info Two-Digit Postcodes}
+\label{tab:geonamesandpostcodeinfo2d}
+\end{table}
+
+Comparing these two tables one can see that the coordinates changed slightly. This is due to the fact that now two different data sources were used for the calculation of centroids resulting in more accurate coordinates.
