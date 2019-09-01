@@ -1,7 +1,7 @@
 \section{Two-Digit Postcodes}
 CSV Data provided by geonames.org \cite{Unxos2019} and postcode.info, which was scrapped and provided by a fellow student \cite{Mehra2019},  was used as basis for calculating two-digit postcodes for European countries. At the first iteration two-digit postcodes were calculated from Geonames data. In order to achieve this Python scripts were written \cite{Dechant2019b}. These scripts process a Geonames CSV file and provide a new CSV file with two-digits postcodes including their centroids. Here is an example of six calculated two-digit postcodes in Germany:
 
-\begin{table}[]
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -18,7 +18,7 @@ DE85 & geonames2d & 85 & postalcode & 48.4174 & 11.6308 \\ \hline
 
 At the second iteration Geonames and Postcode data were combined after having done some preparation steps on the Postcode data. Again Python scripts were written \cite{Dechant2019}. Here is an excerpt:
 
-\begin{table}[]
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
