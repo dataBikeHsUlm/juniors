@@ -22,7 +22,7 @@ sudo systemctl enable docker
 sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 \end{lstlisting}
-Afterwars Pelias can be installed by cloning Pelias' git repository. In this repository Pelias' developers provide example projects (e.g. Beligum, Portland Metro, etc.). Pelias' "planet" project was used as a starting point for a Europe build. For this Pelias was forked on Github and cloned onto the VM. The project can be found in the following folder:
+Afterwards Pelias can be installed by cloning Pelias' git repository. In this repository Pelias' developers provide example projects (e.g. Beligum, Portland Metro, etc.). Pelias' "planet" project was used as a starting point for a Europe build. For this Pelias was forked on Github and cloned onto the VM. The project can be found in the following folder:
 \begin{lstlisting}[language=bash,breaklines=true]
 /home/dataproject/git/pelias-docker/projects/Europe
 \end{lstlisting}
@@ -50,4 +50,70 @@ pelias download all
 pelias prepare all
 pelias import all
 pelias compose up
+\end{lstlisting}
+
+\subsection{Installation from scratch}
+In order to do a clean installation of the pelias service and its dependencies on a production server at a later point in time we decided to try the installation from scratch and wrote an installation guide. The complete guide can be found in the appendix TODO VERWEIS AUF ANHANG MIT INSTALLATION GUIDE. We did the installation on a Linux VM running Ubuntu 18.04.
+
+\subsubsection{Installing Dependencies}
+\textbf{Node.js:} Version 8 or newer required, version 10 recommended
+
+\begin{lstlisting}[language=bash,breaklines=true]
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
+\end{lstlisting}
+
+\textbf{Elasticsearch:} Version 2.4 or 5.6
+
+\begin{lstlisting}[language=bash,breaklines=true]
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
+sudo apt update && sudo apt upgrade
+sudo apt install apt-transport-https uuid-runtime pwgen openjdk-8-jre-headless
+sudo apt-get update
+sudo apt update
+sudo apt install elasticsearch
+\end{lstlisting}
+
+\textbf{SQLite:} Version 3.11 or newer
+
+\begin{lstlisting}[language=bash,breaklines=true]
+sudo apt-get update
+sudo apt-get install sqlite3
+sqlite3 --version
+sudo apt-get install sqlitebrowser
+\end{lstlisting}
+
+\textbf{Libpostal:}
+In order to install libpostal you will have to manually compile the source code.
+
+\begin{lstlisting}[language=bash,breaklines=true]
+sudo apt-get install curl autoconf automake libtool pkg-config
+cd /
+git clone https://github.com/openvenues/libpostal
+cd libpostal
+./bootstrap.sh
+./configure --datadir=[...some dir with a few GB of space...]
+make -j4
+sudo make install
+sudo ldconfig
+\end{lstlisting}
+
+\subsubsection{Installing Pelias}
+Once you are done installing all the dependencies and downloaded the data for your pelias build you can start installing pelias itself.
+
+\begin{lstlisting}[language=bash,breaklines=true]
+for repository in schema whosonfirst geonames openaddresses openstreetmap polylines api placeholder interpolation pip-service; do
+git clone https://github.com/pelias/${repository}.git # clone from Github
+pushd $repository > /dev/null # switch into importer directory
+npm install # install npm dependencies
+popd > /dev/null # return to code directory
+done
+\end{lstlisting}
+
+After the installation you will have to set up the elasticsearch schema in order to use pelias.
+
+\begin{lstlisting}[language=bash,breaklines=true]
+cd /pelias/schema # assuming you have just run the bash snippet to download the repos from earlier
+./bin/create_index
 \end{lstlisting}
