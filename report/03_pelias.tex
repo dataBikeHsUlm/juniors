@@ -1,8 +1,8 @@
 % vim:ft=tex
 
-\section{Pelias}
-\subsection{General}
-\subsubsection{Capabilities}
+
+\section{General}
+\subsection{Capabilities}
 Pelias is a software solution/library used for geocoding. Geocoding is the process of taking input text, such as an address or the name of a place and returning a latitude/longitude location on the Earth's surface for that place.
 The "senior team" used Nominatim for geocoding, which is a tool for geocoding just like pelias. One of our main tasks  in the course of the first half of the project was to test and evaluate pelias as an alternative open-source geocoder to Nominatim.
 
@@ -34,10 +34,10 @@ As mentioned above, pelias has the ability to import data from many different op
 \label{fig:pelias_architecture}
 \end{figure}
 
-\subsubsection{Database}
+\subsection{Database}
 The underlying datastore that powers the search results and does query-lifting is Elasticsearch. Currently version 2.4 is supported, with plans to support 5.x soon. The developers built a tool called pelias-schema that sets up Elasticsearch indices properly for Pelias.
 
-\subsubsection{Dependencies}
+\subsection{Dependencies}
 These are software projects that are not used directly but are used by other components of Pelias:
 \begin{itemize}
 \item \textbf{model:} provide a single library for creating documents that fit the Pelias Elasticsearch schema. This is a core component of Pelias‘ flexible importer architecture
@@ -47,8 +47,8 @@ These are software projects that are not used directly but are used by other com
 \item \textbf{dbclient:} A Node.js stream library for quickly and efficiently importing records into Elasticsearch
 \end{itemize}
 
-\subsection{System Requirements}
-\subsubsection{Software Requirements}
+\section{System Requirements}
+\subsection{Software Requirements}
 \begin{itemize}
 \item \textbf{Node.js:} Version 8 or newer is required, version 10 is recommended for improved performance.
 \item \textbf{Elasticsearch:} Version 2.4 or 5.6
@@ -56,7 +56,7 @@ These are software projects that are not used directly but are used by other com
 \item \textbf{Libpostal:} Pelias relies heavily on the Libpostal address parser. Libpostal requires about 4GB of disk space to download all the required data.
 \end{itemize}
 
-\subsubsection{Hardware Requirements}
+\subsection{Hardware Requirements}
 \begin{itemize}
 \item At a minimum 50GB disk space to download, extract, and process data
 \item 8GB RAM for a local build, 16GB+ for a full planet build. Pelias needs a little RAM for Elasticsearch, but much more for storing administrative data during import
