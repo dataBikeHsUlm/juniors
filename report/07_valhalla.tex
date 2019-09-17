@@ -1,7 +1,7 @@
 % vim:ft=tex
 
 \section{Valhalla}
-Valhalla was installed and configured according to the official documentation on Github.
+Valhalla was installed and configured according to the official documentation on Github \cite{Knisely2019}.
 Tiles and polylines were calculated using the same openstreetmaps pbf file (Europe) which was already used for Pelias. Routing can be achieved by querying Valhalla’s api:
 
 \begin{lstlisting}[language=bash,breaklines=true]
@@ -10,30 +10,31 @@ curl http://141.59.29.110:8002/route --data '{"locations":[{"lat":48.1331,"lon":
 
 Result:
 
-\begin{lstlisting}[language=bash,breaklines=true]
-"summary": {
-"max_lon": 11.605507,
-"max_lat": 48.133167,
-"time": 2397,
-"length": 38.536,
-"min_lat": 47.943157,
-"min_lon": 11.260186
-},
-"locations": [
-{
-"original_index": 0,
-"type": "break",
-"lon": 11.6046,
-"lat": 48.133099,
-"side_of_street": "right"
-},
-{
-"original_index": 1,
-"type": "break",
-"lon": 11.2759,
-"lat": 47.941898,
-"side_of_street": "right"
-}
+\begin{lstlisting}[language=json,breaklines=true]
+    "summary": {
+      "max_lon": 11.605507,
+      "max_lat": 48.133167,
+      "time": 2397,
+      "length": 38.536,
+      "min_lat": 47.943157,
+      "min_lon": 11.260186
+    },
+    "locations": [
+      {
+        "original_index": 0,
+        "type": "break",
+        "lon": 11.6046,
+        "lat": 48.133099,
+        "side_of_street": "right"
+      },
+      {
+        "original_index": 1,
+        "type": "break",
+        "lon": 11.2759,
+        "lat": 47.941898,
+        "side_of_street": "right"
+      }
+    ]
 \end{lstlisting}
 
 The complete output and routing instructions are in Appendix TODO VERWEIS AUF APPENDIX EINFÜGEN.
