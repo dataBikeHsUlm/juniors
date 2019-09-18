@@ -31,6 +31,9 @@
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage[titletoc]{appendix}
+\usepackage{cleveref}
+\crefname{section}{section}{sections}
+\crefname{chapter}{chapter}{chapters}
 
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
@@ -131,7 +134,7 @@
 \tableofcontents
 \mainmatter{}
 \newpage
-\chapter{Project Presentation and Scope}
+\chapter{Project Presentation and Scope} \label{ReqCha}
 % TODO: reorganize, rewrite
 \input{./01_introduction.tex}
 \input{./02_requirements.tex}
@@ -143,6 +146,8 @@
 \chapter{Routing Engines}
 \input{./06_routing_engines.tex}
 \input{./07_valhalla.tex}
+\chapter{Conclusion and Outlook}
+\input{./08_Conclusion_and_Outlook.tex}
 
 \newpage
 \bibliographystyle{plain}
