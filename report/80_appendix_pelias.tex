@@ -1,0 +1,636 @@
+\section{Docker installation config files} \label{Dicf}
+\subsection{.env-File:}
+\begin{lstlisting}[language=json,breaklines=true]
+	COMPOSE_PROJECT_NAME=pelias 
+	DATA_DIR=/data/pelias-docker-compose/ 
+	DOCKER_USER=1003 
+	ENABLE_GEONAMES=true
+	DATA_DIR: directory where Pelias will store downloaded data. Also used to build its other services. 
+	DOCKER_USER = All Pelias processes in containers run as non-root users. This user ID will be used for accessing files on the host filesystem in DATA_DIR.
+\end{lstlisting}
+
+\subsection{Elasticsearch.yml-File:}
+\begin{lstlisting}[language=json,breaklines=true]
+	network.host: 0.0.0.0 
+	bootstrap.memory_lock: true 
+	indices.breaker.fielddata.limit: 85% 
+	indices.fielddata.cache.size: 75% 
+	thread_pool.bulk.queue_size: 500 
+	thread_pool.index.queue_size: 1000
+\end{lstlisting}
+
+\subsection{pelias.json-File:}
+\begin{lstlisting}[language=json,breaklines=true]
+{
+  "logger": {
+    "level": "info",
+    "timestamp": false
+  },
+  "esclient": {
+    "apiVersion": "2.4",
+    "hosts": [
+      {
+        "host": "elasticsearch"
+      }
+    ]
+  },
+  "elasticsearch": {
+    "settings": {
+      "index": {
+        "refresh_interval": "10s",
+        "number_of_replicas": "0",
+        "number_of_shards": "5"
+      }
+    }
+  },
+  "acceptance-tests": {
+    "endpoints": {
+      "docker": "http://api:4000/v1/"
+    }
+  },
+  "api": {
+    "targets": {
+      "canonical_sources": [
+        "whosonfirst",
+        "openstreetmap",
+        "openaddresses",
+        "geonames",
+        "geonamesandpostcodeinfo"
+      ],
+      "layers_by_source": {
+        "geonames2d": [
+          "country",
+          "postalcode",
+          "source",
+          "layer"
+        ],
+        "geonamesandpostcodeinfo": [
+          "name",
+          "source",
+          "layer",
+          "lat",
+          "lon",
+          "country",
+          "postalcode"
+        ],
+        "openstreetmap": [
+          "address",
+          "venue",
+          "street"
+        ],
+        "openaddresses": [
+          "address"
+        ],
+        "geonames": [
+          "country",
+          "macroregion",
+          "region",
+          "county",
+          "localadmin",
+          "locality",
+          "borough",
+          "neighbourhood",
+          "venue",
+          "postalcode"
+        ],
+        "whosonfirst": [
+          "continent",
+          "empire",
+          "country",
+          "dependency",
+          "macroregion",
+          "region",
+          "locality",
+          "localadmin",
+          "macrocounty",
+          "county",
+          "macrohood",
+          "borough",
+          "neighbourhood",
+          "microhood",
+          "disputed",
+          "venue",
+          "postalcode",
+          "continent",
+          "ocean",
+          "marinearea"
+        ]
+      },
+      "source_aliases": {
+        "osm": [
+          "openstreetmap"
+        ],
+        "oa": [
+          "openaddresses"
+        ],
+        "gn": [
+          "geonames"
+        ],
+        "wof": [
+          "whosonfirst"
+        ],
+        "2dpg": [
+          "geonames2d"
+        ]
+      }
+    },
+    "textAnalyzer": "libpostal",
+    "services": {
+      "pip": {
+        "url": "http://pip:4200"
+      },
+      "libpostal": {
+        "url": "http://libpostal:4400"
+      },
+      "placeholder": {
+        "url": "http://placeholder:4100"
+      },
+      "interpolation": {
+        "url": "http://interpolation:4300"
+      }
+    },
+    "defaultParameters": {
+      "focus.point.lat": 48.88,
+      "focus.point.lon": 2.32
+    }
+  },
+  "imports": {
+    "adminLookup": {
+      "enabled": true
+    },
+    "geonames": {
+      "datapath": "/data/geonames",
+      "countryCode": "ALL",
+      "sourceURL": "http://download.geonames.org/export/dump/"
+    },
+    "openstreetmap": {
+      "download": [
+        {
+          "sourceURL": "https://download.geofabrik.de/europe-latest.osm.pbf"
+        }
+      ],
+      "leveldbpath": "/tmp",
+      "datapath": "/data/openstreetmap",
+      "import": [
+        {
+          "filename": "europe-latest.osm.pbf"
+        }
+      ]
+    },
+    "openaddresses": {
+      "datapath": "/data/openaddresses",
+      "files": [
+      ]
+    },
+    "polyline": {
+      "datapath": "/data/polylines",
+      "files": [
+        "europe.polyline"
+      ]
+    },
+    "whosonfirst": {
+      "datapath": "/data/whosonfirst",
+      "sqlite": true,
+      "importVenues": false,
+      "importPostalcodes": true
+    },
+    "csv": {
+      "datapath": "/data/geonamesandpostcodeinfo/",
+      "files": [],
+      "download": []
+    }
+  }
+}
+\end{lstlisting}
+
+\subsection{docker-compose.yml-File:}
+\begin{lstlisting}[language=json,breaklines=true]
+version: '3'
+networks:
+  default:
+    driver: bridge
+services:
+  libpostal:
+    image: pelias/libpostal-service
+    container_name: pelias_libpostal
+    user: "${DOCKER_USER}"
+    restart: always
+    ports: [ "4400:4400" ]
+  schema:
+    image: pelias/schema:master
+    container_name: pelias_schema
+    user: "${DOCKER_USER}"
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+  api:
+    image: pelias/api:master
+    container_name: pelias_api
+    user: "${DOCKER_USER}"
+    restart: always
+    environment: [ "PORT=4000" ]
+    ports: [ "4000:4000" ]
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+  placeholder:
+    image: pelias/placeholder:master
+    container_name: pelias_placeholder
+    user: "${DOCKER_USER}"
+    restart: always
+    environment: [ "PORT=4100" ]
+    ports: [ "4100:4100" ]
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
+      - "./blacklist/:/data/blacklist"
+  whosonfirst:
+    image: pelias/whosonfirst:master
+    container_name: pelias_whosonfirst
+    user: "${DOCKER_USER}"
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
+      - "./blacklist/:/data/blacklist"
+  openstreetmap:
+    image: pelias/openstreetmap:relations_bugfix-2019-04-25-cc778095371c142147e31249947a3b43fb57d46d
+    container_name: pelias_openstreetmap
+    user: "${DOCKER_USER}"
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
+      - "./blacklist/:/data/blacklist"
+  openaddresses:
+    image: pelias/openaddresses:master
+    container_name: pelias_openaddresses
+    user: "${DOCKER_USER}"
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
+      - "./blacklist/:/data/blacklist"
+  geonames:
+    image: pelias/geonames:master
+    container_name: pelias_geonames
+    user: "${DOCKER_USER}"
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
+      - "./blacklist/:/data/blacklist"
+  csv-importer:
+    image: pelias/csv-importer:master
+    container_name: pelias_csv_importer
+    user: "${DOCKER_USER}"
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
+      - "./blacklist/:/data/blacklist"
+  transit:
+    image: pelias/transit:master
+    container_name: pelias_transit
+    user: "${DOCKER_USER}"
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
+  polylines:
+    image: pelias/polylines:master
+    container_name: pelias_polylines
+    user: "${DOCKER_USER}"
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
+  interpolation:
+    image: pelias/interpolation:master
+    container_name: pelias_interpolation
+    user: "${DOCKER_USER}"
+    restart: always
+    environment: [ "PORT=4300" ]
+    ports: [ "4300:4300" ]
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
+  pip:
+    image: pelias/pip-service:master
+    container_name: pelias_pip-service
+    user: "${DOCKER_USER}"
+    restart: always
+    environment: [ "PORT=4200" ]
+    ports: [ "4200:4200" ]
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
+  elasticsearch:
+    image: pelias/elasticsearch
+    container_name: pelias_elasticsearch
+    restart: always
+    environment: [ "ES_JAVA_OPTS=-Xmx12g" ]
+    ports: [ "9200:9200", "9300:9300" ]
+    volumes:
+      - "./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro"
+      - "${DATA_DIR}/elasticsearch:/usr/share/elasticsearch/data"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add: [ "IPC_LOCK" ]
+  fuzzy-tester:
+    image: pelias/fuzzy-tester:master
+    container_name: pelias_fuzzy_tester
+    user: "${DOCKER_USER}"
+    restart: "no"
+    command: "--help"
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "./test_cases:/code/pelias/fuzzy-tester/test_cases"
+\end{lstlisting}
+
+\section{Pelias from scratch instllation guide} \label{Pfsig}
+\begin{lstlisting}[language=json,breaklines=true]
+Dependecies:
+1. Node.js:
+Version 8 or newer required, version 10 recommended 
+Ubuntu or Debian:
+Node.js v11.x:
+# Using Ubuntu
+curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+sudo apt-get install -y nodejs
+# Using Debian, as root
+curl -sL https://deb.nodesource.com/setup_11.x | bash -
+apt-get install -y nodejs
+Node.js v10.x:
+# Using Ubuntu
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
+# Using Debian, as root
+curl -sL https://deb.nodesource.com/setup_10.x | bash -
+apt-get install -y nodejs
+CentOS:
+NodeJS 11.x
+curl -sL https://rpm.nodesource.com/setup_11.x | bash -
+NodeJS 10.x
+curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+	Optional: install build tools
+	To compile and install native addons from npm you may also need 
+	to install build tools:
+yum install gcc-c++ make
+# or: yum groupinstall 'Development Tools'
+2. Elasticsearch:
+Version 2.4 or 5.6
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
+sudo apt update && sudo apt upgrade
+sudo apt install apt-transport-https uuid-runtime pwgen openjdk-8-jre-headless
+sudo apt-get update
+sudo apt update
+sudo apt install elasticsearch
+mkdir /elasticsearch
+mkdir /elasticsearch/data
+mkdir /elasticsearch/logs
+make sure elasticsearch has rights to access the folders:
+sudo chown -R elasticsearch:elasticsearch /elasticsearch
+if you get Errors like:
+	ERROR Null object returned for RollingFile in Appenders
+that most likely means that elasticsearch doesn't have permissions to access the logs and data folders.
+After the installation, a default configuration file will be populated to 
+/etc/elasticsearch/elasticsearch.yml
+Most lines are commented out, edit the file to tweak and tune the configuration.
+E.g, you can set correct cluster name for your applications:
+cluster.name: my-application
+Recommended Settings:
+cluster.name: pelias-el-search
+path.data: /elasticsearch/data
+path.logs: /elasticsearch/logs
+network.host: 127.0.0.1
+http.port: 9200
+Note that the default minimum memory set for JVM is 2gb, if your server has small memory size, change this value:
+$ sudo vim /etc/elasticsearch/jvm.options
+Change:
+-Xms2g
+-Xmx2g
+And set your values for minimum and maximum memory allocation. E.g to set values to 512mb of ram, use:
+-Xms512m
+-Xmx512m
+After you have modified the configuration, you can start Elasticsearch:
+$ sudo systemctl daemon-reload
+$ sudo systemctl enable elasticsearch.service
+$ sudo systemctl restart elasticsearch.service
+Check status:
+$ sudo systemctl status elasticsearch.service 
+ elasticsearch.service - Elasticsearch
+Loaded: loaded (/usr/lib/systemd/system/elasticsearch.service; disabled; vendor preset: enabled)
+Active: active (running) since Sun 2019-05-01 10:39:54 UTC; 18s ago
+Docs: http://www.elastic.co
+Process: 14314 ExecStartPre=/usr/share/elasticsearch/bin/elasticsearch-systemd-pre-exec (code=exited, status=0/SUCCESS)
+Main PID: 14325 (java)
+Tasks: 38 (limit: 2362)
+CGroup: /system.slice/elasticsearch.service
+14325 /usr/bin/java -Xms512m -Xmx512m -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -X
+That's all for the installation of Elasticsearch 5.x on Ubuntu 18.04 LTS (Bionic Beaver) Linux.
+3. SQLite:
+Version 3.11 or newer
+sudo apt-get update
+sudo apt-get install sqlite3
+sqlite3 --version
+sudo apt-get install sqlitebrowser
+4.Libpostal: 
+sudo apt-get install curl autoconf automake libtool pkg-config
+cd /
+git clone https://github.com/openvenues/libpostal
+cd libpostal
+./bootstrap.sh
+./configure --datadir=[...some dir with a few GB of space...]
+make -j4
+sudo make install
+
+# On Linux it's probably a good idea to run
+sudo ldconfig
+Pelias: 
+Data:
+Download all the rawdata you need and copy it into respective folders such as
+"/data/rawdata/whosonfirst", 
+"/data/rawdata/geonames", 
+"/data/rawdata/openadresses", 
+"/data/rawdata/openstreetmap", 
+"/data/rawdata/polylines"
+Pelias:
+mkdir /pelias
+cd /pelias
+for repository in schema whosonfirst geonames openaddresses openstreetmap polylines api placeholder interpolation pip-service; do
+	git clone https://github.com/pelias/${repository}.git # clone from Github
+	pushd $repository > /dev/null                         # switch into importer directory
+	npm install                                           # install npm dependencies
+	popd > /dev/null                                      # return to code directory
+done
+Create a file "config.json" in the home directory (~/) of the pelias user. Paste following into pelias.json:
+{
+  "esclient": {
+    "apiVersion": "5.6",
+    "keepAlive": true,
+    "requestTimeout": "120000",
+    "hosts": [{
+      "env": "development",
+      "protocol": "http",
+      "host": "localhost",
+      "port": 9200
+    }],
+    "log": [{
+      "type": "stdio",
+      "json": false,
+      "level": [ "error", "warning" ]
+    }]
+  },
+  "elasticsearch": {
+    "settings": {
+      "index": {
+        "number_of_replicas": "0",
+        "number_of_shards": "5",
+        "refresh_interval": "1m"
+      }
+    }
+  },
+  "interpolation": {
+    "client": {
+      "adapter": "null"
+    }
+  },
+  "dbclient": {
+    "statFrequency": 10000
+  },
+  "api": {
+    "accessLog": "common",
+    "textAnalyzer": "libpostal",
+    "host": "http://pelias.mapzen.com/",
+    "indexName": "pelias",
+    "version": "1.0",
+    "targets": {
+      "auto_discover": false,
+      "canonical_sources": ["whosonfirst", "openstreetmap", "openaddresses", "geonames"],
+      "layers_by_source": {
+        "openstreetmap": [ "address", "venue", "street" ],
+        "openaddresses": [ "address" ],
+        "geonames": [
+          "country", "macroregion", "region", "county", "localadmin", "locality", "borough",
+          "neighbourhood", "venue"
+        ],
+        "whosonfirst": [
+          "continent", "empire", "country", "dependency", "macroregion", "region", "locality",
+          "localadmin", "macrocounty", "county", "macrohood", "borough", "neighbourhood",
+          "microhood", "disputed", "venue", "postalcode", "continent", "ocean", "marinearea"
+        ]
+      },
+      "source_aliases": {
+        "osm": [ "openstreetmap" ],
+        "oa":  [ "openaddresses" ],
+        "gn":  [ "geonames" ],
+        "wof": [ "whosonfirst" ]
+      },
+      "layer_aliases": {
+        "coarse": [
+          "continent", "empire", "country", "dependency", "macroregion", "region", "locality",
+          "localadmin", "macrocounty", "county", "macrohood", "borough", "neighbourhood",
+          "microhood", "disputed", "postalcode", "continent", "ocean", "marinearea"
+        ]
+      }
+    }
+  },
+  "schema": {
+    "indexName": "pelias"
+  },
+  "logger": {
+    "level": "debug",
+    "timestamp": true,
+    "colorize": true
+  },
+  "acceptance-tests": {
+    "endpoints": {
+      "local": "http://localhost:3100/v1/",
+      "dev-cached": "http://pelias.dev.mapzen.com.global.prod.fastly.net/v1/",
+      "dev": "http://pelias.dev.mapzen.com/v1/",
+      "prod": "http://search.mapzen.com/v1/",
+      "prod-uncached": "http://pelias.mapzen.com/v1/",
+      "prodbuild": "http://pelias.prodbuild.mapzen.com/v1/"
+    }
+  },
+  "imports": {
+    "adminLookup": {
+      "enabled": true,
+      "maxConcurrentRequests": 100,
+      "usePostalCities": false
+    },
+    "blacklist": {
+      "files": []
+    },
+    "csv": {
+    },
+    "geonames": {
+      "datapath": "/data/rawdata/geonames",
+      "countryCode": "ALL"
+    },
+    "openstreetmap": {
+      "datapath": "/data/rawdata/openstreetmaps",
+      "leveldbpath": "/tmp",
+      "import": [{
+        "filename": "europe-latest.osm.pbf"
+      }]
+    },
+    "openaddresses": {
+      "datapath": "/data/rawdata/openaddresses",
+      "files": []
+    },
+    "polyline": {
+      "datapath": "/data/rawdata/polylines",
+      "files": []
+    },
+    "whosonfirst": {
+      "datapath": "/data/rawdata/whosonfirst",
+      "importVenues": false
+    }
+  }
+}
+Add the pelias.json to the PATH variable by adding the followinbg line at the bottom of the .bashrc-file:
+export PATH=$PATH:PELIAS_CONFIG=/home/<username>/pelias.config
+Set up Elasticsearch Schema:
+cd /pelias/schema  # assuming you have just run the bash snippet to 			  download the repos from earlier
+./bin/create_index
+Run the Importers:
+For each importer (openadresses, openstreetmaps, whosonfirst, geonames and polylines) navigate into their folders under 
+cd /pelias/<importer_folder>
+and execute the importer via 
+npm start
+In case you want to delete the imported data and restart from import phase, run the following:
+# !! WARNING: this will remove all your data from pelias!!
+node scripts/drop_index.js    #it will ask for confirmation first
+./bin/create_index
+Install and start the pelias services:
+Add the following to the bottom of the pelias.json file in your home directory. This will tell the pelias API to use all the services running locally and on their default ports.
+{
+  "api": {
+    "services": {
+      "placeholder": {
+        "url": "http://localhost:3000"
+      },
+      "libpostal": {
+        "url": "http://localhost:8080"
+      },
+      "pip": {
+        "url": "http://localhost:3102"
+      },
+      "interpolation": {
+        "url": "http://localhost:3000"
+      }
+    }
+  }
+}
+Start the pelias API:
+To start the pelias API navigate into folder
+cd /pelias/api
+and execute
+npm start
+Geocoding with pelias:
+Pelias should now be up and running and will respond to your queries.
+For a quick check, a request to http://localhost:3100 should display a link to the documentation for handy reference.
+Here are some queries to try:
+http://localhost:3100/v1/search?text=london: a search for the city of London.
+http://localhost:3100/v1/autocomplete?text=londo: another query for London, but using the autocomplete endpoint which supports partial matches and is intended to be sent queries as a user types (note the query is for londo but London is returned)
+http://localhost:3100/v1/reverse?point.lon=-73.986027&point.lat=40.748517: a reverse geocode for results near the Empire State Building in New York City.
+\end{lstlisting}

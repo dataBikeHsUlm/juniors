@@ -33,7 +33,9 @@ In order to build and run Pelias with data for Europe four configuration files i
 \item pelias.json
 \item docker-compose.yml
 \end{enumerate}
-TODO VERWEIS AUF ANHANG MIT DEN KONFIGURATIONSFILES
+
+The files can be found in the appendix on page \pageref{Dicf}.
+
 In .env DATA{\_}DIR and DOCKER{\_}USER are important entries/variables. DATA{\_}DIR specifies where Pelias will store downloaded data and build its other services. DOCKER{\_}USER specifies the user id. This user id will be used for accessing files on the host filesystem in DATA{\_}DIR since Pelias' processes run as non-root users in containers.
 In Elasticsearch.yml both thread pool sizes had to be increased since the default values were too small. Pelias importers delivered too much data concurrently for Elasticsearch which resulted in corrupted data.
 In pelias.json all Pelias services are configured. These services run as docker containers. Therefore, it is not necessary to provide complete full paths on the host filesystem or IP/DNS addresses. Paths are mapped to the paths provided in the docker compose file  and .env file. Docker has its own networking and DNS. Services in a docker network can be addressed by using docker compose service names as well as container names and ids. Container ports can be mapped to host ports.
@@ -53,7 +55,7 @@ pelias compose up
 \end{lstlisting}
 
 \subsection{Installation from scratch}
-In order to do a clean installation of the pelias service and its dependencies on a production server at a later point in time we decided to try the installation from scratch and wrote an installation guide. The complete guide can be found in the appendix TODO VERWEIS AUF ANHANG MIT INSTALLATION GUIDE. We did the installation on a Linux VM running Ubuntu 18.04.
+In order to do a clean installation of the pelias service and its dependencies on a production server at a later point in time we decided to try the installation from scratch and wrote an installation guide. The complete guide can be found in the appendix on page \pageref{Pfsig}. We did the installation on a Linux VM running Ubuntu 18.04.
 
 \subsubsection{Installing Dependencies}
 \textbf{Node.js:} Version 8 or newer required, version 10 recommended

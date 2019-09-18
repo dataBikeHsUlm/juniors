@@ -6,7 +6,7 @@
 Pelias is a software solution/library used for geocoding. Geocoding is the process of taking input text, such as an address or the name of a place and returning a latitude/longitude location on the Earth's surface for that place.
 The "senior team" used Nominatim for geocoding, which is a tool for geocoding just like pelias. One of our main tasks  in the course of the first half of the project was to test and evaluate pelias as an alternative open-source geocoder to Nominatim.
 
-Here are some benefits of the pelias API:
+Here are some benefits of the pelias API TODO ZITAT EINFUEGEN (https://github.com/pelias/pelias):
 \begin{itemize}
 \item Completely open-source and MIT licensed
 \item A powerful data import architecture: Pelias supports many open-data projects out of the box but also works great with private data
@@ -16,7 +16,7 @@ Here are some benefits of the pelias API:
 \item Easy installation with minimal external dependencies
 \end{itemize}
 
-As mentioned above, pelias has the ability to import data from many different open-data projects as well as own private data. The importers filter, normalize, and ingest geographic datasets into the Pelias database. Currently there are five officially supported importers:
+As mentioned above, pelias has the ability to import data from many different open-data projects as well as own private data. The importers filter, normalize, and ingest geographic datasets into the Pelias database. Currently there are five officially supported importers TODO ZITAT EINFUEGEN (https://github.com/pelias/pelias):
 
 \begin{itemize}
 \item \textbf{OpenStreetMap:} supports importing nodes and ways from OpenStreetMap
@@ -35,17 +35,7 @@ As mentioned above, pelias has the ability to import data from many different op
 \end{figure}
 
 \subsection{Database}
-The underlying datastore that powers the search results and does query-lifting is Elasticsearch. Currently version 2.4 is supported, with plans to support 5.x soon. The developers built a tool called pelias-schema that sets up Elasticsearch indices properly for Pelias.
-
-\subsection{Dependencies}
-These are software projects that are not used directly but are used by other components of Pelias:
-\begin{itemize}
-\item \textbf{model:} provide a single library for creating documents that fit the Pelias Elasticsearch schema. This is a core component of Pelias‘ flexible importer architecture
-\item \textbf{wof-admin-lookup:} A library for performing administrative lookup using point-in-polygon math. Previously included in each of the importers but now only used by the PIP service.
-\item \textbf{query:} This is where most of Elasticsearch’s query generation happens.
-\item \textbf{config:} Pelias is very configurable, and all of it is driven from a single JSON file which is called pelias.json. This package provides a library for reading, validating, and working with this configuration. It is used by almost every other Pelias component
-\item \textbf{dbclient:} A Node.js stream library for quickly and efficiently importing records into Elasticsearch
-\end{itemize}
+The underlying datastore that powers the search results and does query-lifting is Elasticsearch. Currently version 2.4 and version 5 is supported, with plans to support Elasticsearch 6 soon. The developers built a tool called pelias-schema that sets up Elasticsearch indices properly for Pelias.
 
 \section{System Requirements}
 \subsection{Software Requirements}
