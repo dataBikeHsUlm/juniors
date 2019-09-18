@@ -6,7 +6,7 @@
 Pelias is a software solution/library used for geocoding. Geocoding is the process of taking input text, such as an address or the name of a place and returning a latitude/longitude location on the Earth's surface for that place.
 The "senior team" used Nominatim for geocoding, which is a tool for geocoding just like pelias. One of our main tasks  in the course of the first half of the project was to test and evaluate pelias as an alternative open-source geocoder to Nominatim.
 
-Here are some benefits of the pelias API TODO ZITAT EINFUEGEN (https://github.com/pelias/pelias):
+Here are some benefits of the pelias API \cite{Simoni2018}:
 \begin{itemize}
 \item Completely open-source and MIT licensed
 \item A powerful data import architecture: Pelias supports many open-data projects out of the box but also works great with private data
@@ -16,7 +16,7 @@ Here are some benefits of the pelias API TODO ZITAT EINFUEGEN (https://github.co
 \item Easy installation with minimal external dependencies
 \end{itemize}
 
-As mentioned above, pelias has the ability to import data from many different open-data projects as well as own private data. The importers filter, normalize, and ingest geographic datasets into the Pelias database. Currently there are five officially supported importers TODO ZITAT EINFUEGEN (https://github.com/pelias/pelias):
+As mentioned above, pelias has the ability to import data from many different open-data projects as well as own private data. The importers filter, normalize, and ingest geographic datasets into the Pelias database. Currently there are five officially supported importers \cite{Simoni2018}:
 
 \begin{itemize}
 \item \textbf{OpenStreetMap:} supports importing nodes and ways from OpenStreetMap
@@ -24,7 +24,7 @@ As mentioned above, pelias has the ability to import data from many different op
 \item \textbf{Who's on First:} supports importing admin areas and venues from Who's on First
 \item \textbf{Geonames:} supports importing admin records and venues from Geonames
 \item \textbf{Polylines:} supports any data in the Google Polyline format. It's mainly used to import roads from OpenStreetMap
-\item \textbf{Custom Data Importer:} creates a Pelias record for each row in a CSV file. Each row must define a source, latitude, longitude, and either an address, name, or both. This feature was used to import two-digit postcodes into Pelias.
+\item \textbf{Custom Data Importer:} creates a Pelias record for each row in a CSV file. Each row must define a source, latitude, longitude, and either an address, name, or both. This feature was used to import two-digit postcodes into Pelias which will be described in chapter~\nameref{chap:dataprep}.
 \end{itemize}
 
 \begin{figure}[H]

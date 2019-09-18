@@ -34,4 +34,64 @@ DE85 & geonamesandpostcodeinfo & 85 & postalcode & 48.4171 & 11.6294 \\ \hline
 \end{table}
 
 Comparing these two tables one can see that the coordinates changed slightly. This is due to the fact that now two different data sources were used for the calculation of centroids resulting in more accurate coordinates.
-Postcodes in Malta were aggregated and their centroids calculated using the first three digits as requested by one of the project's experts. 
+Postcodes in Malta were aggregated and their centroids calculated using the first three digits as requested by one of the project's experts.
+Finally the calculated two-digit postcodes had to be imported into Pelias. For this a Python script, which creates a CSV file conforming to Pelias' custom data importer, had to be written \cite{Dechant2019}. This CSV file has to be copied to the following path, which is defined in docker-compose.yml and .env:
+/data/pelias-docker-compose/geonamesandpostcodeinfo/geonamesandpostcodeinfo2Dpostalcodes.csv
+Afterwards the command "pelias import csv" has to be run. Once the import is complete, the custom layer "geonamesandpostcodeinfo" and its data can be queried as follows:\\
+
+\url{http://141.59.29.110:4000/v1/search?text=DE81&sources=geonamesandpostcodeinfo}\\
+
+This query delivers the following JSON file:\\
+\begin{lstlisting}[language=json,breaklines=true]
+"type": "FeatureCollection",
+    "features": [
+ 		{
+	"type": "Feature",
+	"geometry": {
+	   "type": "Point",
+	   "coordinates": [
+	   	11.6046,
+		48.1331 
+	]
+	},
+"properties": {
+	"id": "1141",
+	"gid": "geonamesandpostcodeinfo:postalcode:1141",
+	"layer": "postalcode",
+	"source": "geonamesandpostcodeinfo",
+	"source_id": "1141",
+	"name": "DE81",
+	"confidence": 1,
+	"match_type": "exact",
+	"distance": 690.624,
+	"accuracy": "centroid",
+	"country": "Germany",
+	"country_gid": "whosonfirst:country:85633111",
+	"country_a": "DEU",
+	"region": "Bayern",
+	"region_gid": "whosonfirst:region:85682571",
+	"region_a": "BY",
+	"macrocounty": "Oberbayern",
+	"macrocounty_gid": "whosonfirst:macrocounty:404227567",
+	"county": "Muenchen",
+	"county_gid": "whosonfirst:county:102063261",
+	"county_a": "MN",
+	"locality": "Muenchen",
+	"locality_gid": "whosonfirst:locality:101748479",
+	"neighbourhood": "Haidhausen",
+	"neighbourhood_gid": "whosonfirst:neighbourhood:85905613",
+	"continent": "Europe",
+	"continent_gid": "whosonfirst:continent:102191581",
+	"label": "DE81, Muenchen, Germany"
+		}
+	}
+],
+"bbox": [
+	11.6046,
+	48.1331,
+	11.6046,
+	48.1331
+	]
+}
+\end{lstlisting}
+

@@ -1,6 +1,6 @@
 \section{Docker installation config files} \label{Dicf}
 \subsection{.env-File:}
-\begin{lstlisting}[language=json,breaklines=true]
+\begin{lstlisting}[language=bash,breaklines=true]
 	COMPOSE_PROJECT_NAME=pelias 
 	DATA_DIR=/data/pelias-docker-compose/ 
 	DOCKER_USER=1003 
@@ -10,7 +10,7 @@
 \end{lstlisting}
 
 \subsection{Elasticsearch.yml-File:}
-\begin{lstlisting}[language=json,breaklines=true]
+\begin{lstlisting}[language=bash,breaklines=true]
 	network.host: 0.0.0.0 
 	bootstrap.memory_lock: true 
 	indices.breaker.fielddata.limit: 85% 
@@ -345,7 +345,7 @@ services:
 \end{lstlisting}
 
 \section{Pelias from scratch instllation guide} \label{Pfsig}
-\begin{lstlisting}[language=json,breaklines=true]
+\begin{lstlisting}[language=bash,breaklines=true]
 Dependecies:
 1. Node.js:
 Version 8 or newer required, version 10 recommended 
