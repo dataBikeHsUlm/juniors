@@ -1,5 +1,5 @@
 \section{Docker installation config files} \label{Dicf}
-\subsection{.env-File:}
+\subsection{.env-file:}
 \begin{lstlisting}[language=bash,breaklines=true]
 	COMPOSE_PROJECT_NAME=pelias 
 	DATA_DIR=/data/pelias-docker-compose/ 
@@ -9,7 +9,7 @@
 	DOCKER_USER = All Pelias processes in containers run as non-root users. This user ID will be used for accessing files on the host filesystem in DATA_DIR.
 \end{lstlisting}
 
-\subsection{Elasticsearch.yml-File:}
+\subsection{Elasticsearch.yml-file:}
 \begin{lstlisting}[language=bash,breaklines=true]
 	network.host: 0.0.0.0 
 	bootstrap.memory_lock: true 
@@ -19,7 +19,7 @@
 	thread_pool.index.queue_size: 1000
 \end{lstlisting}
 
-\subsection{pelias.json-File:}
+\subsection{pelias.json-file:}
 \begin{lstlisting}[language=json,breaklines=true]
 {
   "logger": {
@@ -203,7 +203,7 @@
 }
 \end{lstlisting}
 
-\subsection{docker-compose.yml-File:}
+\subsection{docker-compose.yml-file:}
 \begin{lstlisting}[language=json,breaklines=true]
 version: '3'
 networks:
